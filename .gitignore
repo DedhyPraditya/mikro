@@ -1,0 +1,10 @@
+# Logs
+debug.log
+*.log
+
+# Runtime / cache
+status.json
+
+# OS files
+Thumbs.db
+.DS_Store
