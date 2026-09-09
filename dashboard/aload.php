@@ -66,11 +66,16 @@ include('../lang/'.$langid.'.php');
           <div class="box-group">
             <div class="box-group-icon"><i class="fa-solid fa-calendar-week"></i></div>
               <div class="box-group-area">
-              <span ><?= $_system_date_time ?><br>
-                    <?php 
-                    echo ucfirst($clock['date']) . " " . $clock['time'] . "<br>
-                    ".$_uptime." : " . formatDTM($resource['uptime']);
-                    ?>
+                <?php
+                $clockDate = date('M/d/Y', strtotime(str_replace('/', '-', $clock['date'])));
+                $clockTime = $clock['time'];
+                $uptimeVal = formatDTM($resource['uptime']);
+                $timezoneVal = $clock['time-zone-name'] ?? ($timezone ?? '-');
+                ?>
+                <span>Date : <?= $clockDate ?><br>
+                    Time : <?= $clockTime ?><br>
+                    Uptime : <?= $uptimeVal ?><br>
+                    Time Zone : <?= $timezoneVal ?>
                 </span>
               </div>
             </div>
@@ -81,12 +86,11 @@ include('../lang/'.$langid.'.php');
           <div class="box-group">
           <div class="box-group-icon"><i class="fa-solid fa-microchip"></i></div>
               <div class="box-group-area">
-                <span >
-                    <?php
-                    echo $_board_name." : " . $resource['board-name'] . "<br/>
-                    ".$_model." : " . $routerboard['model'] . "<br/>
-                    Router OS : " . $resource['version'];
-                    ?>
+                <span>
+                    Board Name : <?= $resource['board-name'] ?><br/>
+                    Model : <?= $routerboard['model'] ?><br/>
+                    Router OS : <?= $resource['version'] ?><br/>
+                    Architecture : <?= $resource['architecture-name'] ?>
                 </span>
               </div>
             </div>
@@ -97,12 +101,11 @@ include('../lang/'.$langid.'.php');
         <div class="box-group">
           <div class="box-group-icon"><i class="fa fa-server"></i></div>
               <div class="box-group-area">
-                <span >
-                    <?php
-                    echo $_cpu_load." : " . $resource['cpu-load'] . "%<br/>
-                    ".$_free_memory." : " . formatBytes($resource['free-memory'], 2) . "<br/>
-                    ".$_free_hdd." : " . formatBytes($resource['free-hdd-space'], 2)
-                    ?>
+                <span>
+                    CPU Load : <?= $resource['cpu-load'] ?>%<br/>
+                    Free Memory : <?= formatBytes($resource['free-memory'], 2) ?><br/>
+                    Free HDD : <?= formatBytes($resource['free-hdd-space'], 2) ?><br/>
+                    Voltage : <?= $resource['voltage'] ?? '···' ?> &nbsp;Temp : <?= $resource['temperature'] ?? '···' ?>
                 </span>
                 </div>
               </div>
